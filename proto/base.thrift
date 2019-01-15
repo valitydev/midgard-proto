@@ -86,8 +86,8 @@ struct TransactionCashFlow {
 
 /** Описание сущности "Транзакция" */
 struct Transaction {
-    1: required GeneralTransactionInfo general_transaction_info
-    2: optional TransactionCardInfo    transaction_card_info
-    3: required TransactionCashFlow    transaction_cash_flow
-    4: optional Content                additional_transaction_data
+    1: required GeneralTransactionInfo       general_transaction_info
+    2: optional TransactionCardInfo          transaction_card_info
+    3: required list<TransactionCashFlow>    transaction_cash_flow
+    4: optional Content                      additional_transaction_data
 }
