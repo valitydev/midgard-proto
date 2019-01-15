@@ -25,7 +25,6 @@ struct ClearingDataPackage {
     3: required PackageNumber                package_number
     4: required bool                         final_package
     5: required list<base.Transaction>       transactions
-    6: required list<base.Merchant>          merchants
 }
 
 exception ClearingAdapterException {}

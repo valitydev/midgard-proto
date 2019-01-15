@@ -40,10 +40,8 @@ struct GeneralTransactionInfo {
     2: required Timestamp          transaction_date
     3: required TransactionAmount  transaction_amount
     4: required string             transaction_currency
-    5: required string             merchant_id
-    6: optional string             terminal_id
-    7: optional string             transaction_type
-    8: optional MCC                mcc
+    5: optional string             transaction_type
+    6: optional MCC                mcc
 }
 
 /** Карточные данные в рамках трназакции */
@@ -55,19 +53,41 @@ struct TransactionCardInfo {
     5: optional string payer_bank_card_token_provider
 }
 
+/** Тип аккаунта */
+enum CashFlowAccountType {
+    MERCHANT
+    PROVIDER
+    SYSTEM
+    EXTERNAL
+    WALLET
+}
+
+/** Тип инициатора движения денежных потоков для транзакции */
+enum CashFlowChangeType {
+    PAYMENT
+    REFUND
+    ADJUSTMENT
+    PAYOUT
+}
+
+/** Описание движения денежных потоков для транзакции */
+struct TransactionCashFlow {
+    1: required CashFlowChangeType    obj_type
+    2: required CashFlowAccountType   source_account_type
+    3: required string                source_account_type_value
+    4: required i64                   source_account_id
+    5: required CashFlowAccountType   destination_account_type
+    6: required string                destination_account_type_value
+    7: required i64                   destination_account_id
+    8: required i64                   amount
+    9: required string                currency_code
+    10: optional string               details
+}
+
 /** Описание сущности "Транзакция" */
 struct Transaction {
     1: required GeneralTransactionInfo general_transaction_info
     2: optional TransactionCardInfo    transaction_card_info
-    3: optional Content                additional_transaction_data
-}
-
-/** Описание сущности "Мерчант" */
-struct Merchant {
-    1: required string merchantId
-    2: required string merchantName
-    3: required string merchantAddress
-    4: required string merchantCountry
-    5: required string merchantCity
-    6: required string merchantPostalCode
+    3: required TransactionCashFlow    transaction_cash_flow
+    4: optional Content                additional_transaction_data
 }
