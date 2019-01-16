@@ -6,7 +6,12 @@ include "base.thrift"
 /** Номер переданного пакета данных */
 typedef i64 PackageNumber
 
-/** Информация о сбойной транзации */
+/** Идентификатор переданного пакета данных */
+typedef string PackageTagID
+
+typedef string UploadID
+
+/** Информация о сбойной транзакции */
 struct FailureTransactionData {
     1: required string                       transaction_id
     2: required string                       comment
@@ -14,7 +19,7 @@ struct FailureTransactionData {
 
 /** Ответ адаптера по клиринговому событию */
 struct ClearingEventResponse {
-    1: required base.ClearingID              clearing_ig
+    1: required base.ClearingID              clearing_id
     2: required base.ClearingEventState      clearing_state
     3: optional list<FailureTransactionData> failure_transactions
 }
@@ -27,14 +32,22 @@ struct ClearingDataPackage {
     5: required list<base.Transaction>       transactions
 }
 
+/** Мета на пакет клиринговых данных */
+struct ClearingDataPackageTag {
+    1: required PackageTagID   package_tag_id
+    2: required PackageNumber  package_number
+}
+
 exception ClearingAdapterException {}
 
 /** Интерфейс взаимодействия с клиринговым адаптером банка */
 service ClearingAdapter {
     /** Команда на запуск клирингового эвента на стороне адаптера */
-    void StartClearingEvent(1: base.ClearingID clearing_id) throws(1: ClearingAdapterException ex1)
+    UploadID StartClearingEvent(1: base.ClearingID clearing_id) throws (1: ClearingAdapterException ex1)
     /** Отправка данных в клиринговый адаптер */
-    void SendClearingDataPackage(1: ClearingDataPackage clearing_data_package) throws (1: ClearingAdapterException ex1)
+    ClearingDataPackageTag SendClearingDataPackage(1: UploadID upload_id, 2: ClearingDataPackage clearing_data_package) throws (1: ClearingAdapterException ex1)
+    /** Команда на завершение клирингового эвента на стороне адаптера */
+    void CompleteClearingEvent(1: UploadID upload_id, 2: base.ClearingID clearing_id, 3: list<ClearingDataPackageTag> tags) throws (1: ClearingAdapterException ex1)
     /** Получение ответа по клиринговому эвенту от банка */
-    ClearingEventResponse GetBankResponse(1: base.ClearingID clearing_id) throws(1: ClearingAdapterException ex1)
+    ClearingEventResponse GetBankResponse(1: base.ClearingID clearing_id) throws (1: ClearingAdapterException ex1)
 }
