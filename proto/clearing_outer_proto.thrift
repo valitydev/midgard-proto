@@ -4,7 +4,7 @@ namespace erlang midgard
 include "base.thrift"
 
 /** ID провайдера */
-typedef string ProviderID
+typedef i32 ProviderID
 /** ID события на стороне вызывающего сервиса */
 typedef i64 EventID
 
