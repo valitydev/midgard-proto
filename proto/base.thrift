@@ -55,19 +55,19 @@ struct TransactionCardInfo {
 
 /** Тип аккаунта */
 enum CashFlowAccountType {
-    MERCHANT
-    PROVIDER
-    SYSTEM
-    EXTERNAL
-    WALLET
+    merchant
+    provider
+    system
+    external
+    wallet
 }
 
 /** Тип инициатора движения денежных потоков для транзакции */
 enum CashFlowChangeType {
-    PAYMENT
-    REFUND
-    ADJUSTMENT
-    PAYOUT
+    payment
+    refund
+    adjustment
+    payout
 }
 
 /** Описание движения денежных потоков для транзакции */
