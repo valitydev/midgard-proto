@@ -12,8 +12,6 @@ typedef i64 EventID
 struct ClearingEvent {
     1: required EventID           event_id
     2: required ProviderID        provider_id
-    3: optional base.Timestamp    date_from
-    4: optional base.Timestamp    date_to
 }
 
 /** Ответ от сервиса клиринга */
