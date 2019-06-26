@@ -32,6 +32,6 @@ service ClearingService {
     void StartClearingEvent(1: ClearingEvent clearingEvent) throws (1: ProviderNotFound ex1)
     /** Получение статуса клирингового события */
     ClearingEventStateResponse GetClearingEventState(1: EventID event_id) throws (1: NoClearingEvent ex1)
-    /** Повторно отправить клиринговый файл */
-    void ResendClearingFile(1: EventID event_id) throws (1: NoClearingEvent ex1)
+    /** Повторно отправить клиринговый файл для провайдера за определенный день (формат даты YYYY-MM-DD) */
+    void ResendClearingFile(1: ProviderID provider_id, 2: EventID event_id) throws (1: NoClearingEvent ex1)
 }
