@@ -4,7 +4,7 @@ namespace erlang midgard
 include "base.thrift"
 
 /** Номер переданного пакета данных */
-typedef i64 PackageNumber
+typedef i32 PackageNumber
 
 /** Идентификатор переданного пакета данных */
 typedef string PackageTagID
@@ -34,8 +34,9 @@ struct ClearingDataPackage {
 
 /** Мета на пакет клиринговых данных */
 struct ClearingDataPackageTag {
-    1: required PackageTagID   package_tag_id
-    2: required PackageNumber  package_number
+    1: required PackageTagID              package_tag_id
+    2: required PackageNumber             package_number
+    3: optional list<base.Transaction>    failure_transactions
 }
 
 exception ClearingAdapterException {}
