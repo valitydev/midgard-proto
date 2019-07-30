@@ -44,6 +44,7 @@ struct GeneralTransactionInfo {
     6: optional MCC                mcc
     7: required string             invoice_id
     8: required string             payment_id
+    9: optional string             refund_id
 }
 
 /** Карточные данные в рамках трназакции */
