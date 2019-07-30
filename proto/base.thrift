@@ -92,4 +92,5 @@ struct Transaction {
     2: optional TransactionCardInfo          transaction_card_info
     3: required list<TransactionCashFlow>    transaction_cash_flow
     4: optional Content                      additional_transaction_data
+    5: optional string                       comment
 }
