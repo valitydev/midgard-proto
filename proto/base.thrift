@@ -61,9 +61,9 @@ struct TransactionCardInfo {
 /** Дата экспирации */
 struct BankCardExpDate {
     /** Месяц 1..12 */
-    1: required string month
+    1: required i8 month
     /** Год 2015..∞ */
-    2: required string year
+    2: required i16 year
 }
 
 /** Тип аккаунта */
