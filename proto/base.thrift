@@ -8,12 +8,24 @@ namespace erlang midgard
  * `2016-03-22T06:12:27Z`.
  */
 typedef string Timestamp
+
 /** ID события на стороне сервиса клиринга */
 typedef i64 ClearingID
+
 /** Сумма транзакции */
 typedef i64 TransactionAmount
+
 /** MCC */
 typedef i32 MCC
+
+/** Отрезок времени в секундах */
+typedef i32 Timeout
+
+/**
+ * Ассоциация, по которой клиент сможет идентифицировать сессию
+ * взаимодействия с адаптером, чтобы продолжить по ней взаимодействие
+ */
+typedef string CallbackTag
 
 /** Набор данных, подлежащий интерпретации согласно типу содержимого. */
 struct Content {
@@ -104,4 +116,18 @@ struct Transaction {
     3: required list<TransactionCashFlow>    transaction_cash_flow
     4: optional Content                      additional_transaction_data
     5: optional string                       comment
+}
+
+/**
+ * Требование приостановить сессию взаимодействия,
+ * с продолжением по факту прихода обратного запроса
+ */
+struct SuspendIntent {
+    1: required CallbackTag tag
+    2: required Timeout timeout
+}
+
+/** Требование адаптера к клиенту */
+union Intent {
+    1: SuspendIntent suspend
 }
