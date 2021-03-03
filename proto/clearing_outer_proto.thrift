@@ -22,6 +22,15 @@ struct ClearingEventStateResponse {
     4: optional base.ClearingID            clearing_id
 }
 
+struct ClearingOperationInfo {
+    1: required string                       invoice_id
+    2: required string                       payment_id
+    3: optional string                       refund_id
+    4: optional base.Amount                  amount
+    5: optional base.ClearingOperationType   transaction_type
+    6: optional base.Integer                 version
+}
+
 exception NoClearingEvent {}
 
 exception ProviderNotFound {}
@@ -34,4 +43,6 @@ service ClearingService {
     ClearingEventStateResponse GetClearingEventState(1: ProviderID provider_id, 2: EventID event_id) throws (1: NoClearingEvent ex1)
     /** Повторно отправить клиринговый файл для провайдера за определенный день (формат даты YYYY-MM-DD) */
     void ResendClearingFile(1: ProviderID provider_id, 2: EventID event_id) throws (1: NoClearingEvent ex1)
+    /** Отменить отправленную в клиринге операцию */
+    void ReverseClearingOperation(1: ClearingOperationInfo clearing_operation_info);
 }

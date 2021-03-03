@@ -9,6 +9,8 @@ namespace erlang midgard
  */
 typedef string Timestamp
 
+typedef i32 Integer
+
 /** ID события на стороне сервиса клиринга */
 typedef i64 ClearingID
 
@@ -20,6 +22,8 @@ typedef i32 MCC
 
 /** Отрезок времени в секундах */
 typedef i32 Timeout
+
+typedef i64 Amount
 
 /**
  * Ассоциация, по которой клиент сможет идентифицировать сессию
@@ -130,4 +134,10 @@ struct SuspendIntent {
 /** Требование адаптера к клиенту */
 union Intent {
     1: SuspendIntent suspend
+}
+
+/** Тип инициатора движения денежных потоков для транзакции */
+enum ClearingOperationType {
+    payment
+    refund
 }
