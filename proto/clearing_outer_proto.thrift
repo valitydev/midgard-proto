@@ -27,13 +27,15 @@ struct ClearingOperationInfo {
     2: required string                       payment_id
     3: optional string                       refund_id
     4: optional base.Amount                  amount
-    5: optional base.ClearingOperationType   transaction_type
-    6: optional base.Integer                 version
+    5: required base.ClearingOperationType   transaction_type
+    6: required base.Integer                 version
 }
 
 exception NoClearingEvent {}
 
 exception ProviderNotFound {}
+
+exception OperationNotFound {}
 
 /** Интерфейс взаимодействия между внешней системой и клиринговым сервисом */
 service ClearingService {
@@ -44,5 +46,5 @@ service ClearingService {
     /** Повторно отправить клиринговый файл для провайдера за определенный день (формат даты YYYY-MM-DD) */
     void ResendClearingFile(1: ProviderID provider_id, 2: EventID event_id) throws (1: NoClearingEvent ex1)
     /** Отменить отправленную в клиринге операцию */
-    void ReverseClearingOperation(1: ClearingOperationInfo clearing_operation_info);
+    void ReverseClearingOperation(1: ClearingOperationInfo clearing_operation_info) throws (1: OperationNotFound ex1);
 }
