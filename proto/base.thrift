@@ -61,6 +61,7 @@ struct GeneralTransactionInfo {
     7: required string             invoice_id
     8: required string             payment_id
     9: optional string             refund_id
+    10: required bool              is_reversed
 }
 
 /** Карточные данные в рамках трназакции */
