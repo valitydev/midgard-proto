@@ -1,4 +1,4 @@
-namespace java com.rbkmoney.midgard
+namespace java dev.vality.midgard
 namespace erlang midgard
 
 /**
